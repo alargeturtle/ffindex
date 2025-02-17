@@ -1,11 +1,140 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <title>FaceFamous Has You</title>
+  <meta charset="UTF-8" />
+  <title>Wake up Alfredo</title>
+  <style>
+    /* Basic reset and styling */
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      background: #000; /* Black background, Matrix style */
+      color: #00ff00;   /* Green text */
+      font-family: "Courier New", Courier, monospace;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      overflow: hidden;
+    }
+
+    .container {
+      width: 80%;
+      max-width: 600px;
+      text-align: center;
+      transition: all 1s ease;
+    }
+
+    /* Typewriter effect */
+    .typewriter {
+      display: inline-block;
+      white-space: nowrap;
+      overflow: hidden;
+      animation: typing 3.5s steps(40, end), blink 0.75s step-end infinite;
+      border-right: 2px solid #00ff00; /* The cursor */
+    }
+
+    @keyframes typing {
+      from { width: 0; }
+      to   { width: 100%; }
+    }
+
+    @keyframes blink {
+      50% { border-color: transparent; }
+    }
+
+    /* Additional styling for the follow-up text */
+    .follow-up {
+      margin-top: 2rem;
+    }
+
+    .follow-up p {
+      opacity: 0;
+      animation: fadein 2s forwards;
+    }
+
+    .follow-up p:nth-child(1) {
+      animation-delay: 5s;
+    }
+
+    .follow-up p:nth-child(2) {
+      animation-delay: 8s;
+    }
+
+    .follow-up p:nth-child(3) {
+      animation-delay: 11s;
+    }
+
+    @keyframes fadein {
+      to { opacity: 1; }
+    }
+
+    /* Glitch animation */
+    .glitch {
+      animation: glitch 0.3s infinite;
+    }
+
+    @keyframes glitch {
+      0% { transform: translate(2px, 0) skewX(5deg); }
+      20% { transform: translate(-2px, 0) skewX(-5deg); }
+      40% { transform: translate(2px, 0) skewX(5deg); }
+      60% { transform: translate(-2px, 0) skewX(-5deg); }
+      80% { transform: translate(2px, 0) skewX(5deg); }
+      100% { transform: translate(0, 0); }
+    }
+
+    /* TV shutdown effect */
+    .tv-off {
+      animation: tvOff 1s forwards;
+    }
+
+    @keyframes tvOff {
+      0% { transform: scaleY(1); }
+      50% { transform: scaleY(0.1); }
+      100% { transform: scaleY(0); }
+    }
+  </style>
 </head>
+
 <body>
-    <h1>Wake up Alfredo...</h1>
-    <p>I see that you're recording Red Web. You think there's something mysterious about this website? Or are <i>you</i> the mystery?</p>
+  <div class="container" id="content">
+    <!-- The "typing" line -->
+    <h1 class="typewriter">Wake up Alfredo...</h1>
+
+    <!-- The follow-up text with staggered fade-ins -->
+    <div class="follow-up">
+      <p>I see that you're recording <strong>Red Web</strong>.</p>
+      <p>You think there's something mysterious about this website?</p>
+      <p>Or are <em>you</em> the mystery?</p>
+    </div>
+  </div>
+
+  <script>
+    const container = document.getElementById('content');
+
+
+    // Apply TV shutdown effect at 16s
+    setTimeout(() => {
+      container.classList.remove('glitch');
+      container.classList.add('tv-off');
+    }, 16000);
+
+    // Restart the entire sequence at 20s
+    setTimeout(() => {
+      container.classList.remove('tv-off');
+      container.innerHTML = `
+        <h1 class="typewriter">Wake up Alfredo...</h1>
+        <div class="follow-up">
+          <p>I see that you're recording <strong>Red Web</strong>.</p>
+          <p>You think there's something mysterious about this website?</p>
+          <p>Or are <em>you</em> the mystery?</p>
+        </div>
+      `;
+    }, 20000);
+  </script>
 </body>
 </html>
