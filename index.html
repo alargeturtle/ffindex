@@ -1,10 +1,12 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <title>FaceFamous Has You</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>FaceFamous.org</title>
+  <link href="https://fonts.googleapis.com/css2?family=EB+Garamond:wght@600&family=Lora:wght@400;500&family=Courier+Prime&display=swap" rel="stylesheet">
   <style>
-    /* Basic reset and styling */
+    /* Basic Reset */
     * {
       margin: 0;
       padding: 0;
@@ -12,129 +14,159 @@
     }
 
     body {
-      background: #000; /* Black background, Matrix style */
-      color: #00ff00;   /* Green text */
-      font-family: "Courier New", Courier, monospace;
+      background: linear-gradient(to bottom, #d6d6d6, #f5f5f5);
+      color: #1a1a1a;
+      font-family: 'Lora', serif;
       display: flex;
+      flex-direction: column;
       justify-content: center;
       align-items: center;
-      height: 100vh;
-      overflow: hidden;
-    }
-
-    .container {
-      width: 80%;
-      max-width: 600px;
       text-align: center;
-      transition: all 1s ease;
+      padding: 20px;
     }
 
-    /* Typewriter effect */
-    .typewriter {
+    .content {
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+    }
+
+    h1 {
+      font-family: 'EB Garamond', serif;
+      font-size: 36px;
+      font-weight: 600;
+      margin-bottom: 12px;
+      letter-spacing: 1px;
+    }
+
+    p {
+      font-size: 18px;
+      font-weight: 400;
+      max-width: 600px;
+      line-height: 1.6;
+      margin-bottom: 20px;
+    }
+
+    .spotify-embed {
+      width: 100%;
+      max-width: 600px;
+      height: 152px;
+      border-radius: 12px;
+    }
+
+    /* Tag Container */
+    .tags-container {
+      width: 90%;
+      max-width: 900px;
+      margin-top: 20px;
+      text-align: center;
+    }
+
+    .tags {
+      font-family: 'Courier Prime', monospace;
+      font-size: 14px;
+      text-align: left;
+      display: grid;
+      grid-template-columns: repeat(10, 1fr);
+      gap: 5px;
+      justify-content: center;
+      margin-top: 20px;
+    }
+
+    .tags a {
+      text-decoration: underline;
+      color: #0000EE;
+      padding: 2px;
       display: inline-block;
-      white-space: nowrap;
-      overflow: hidden;
-      animation: typing 3.5s steps(40, end), blink 0.75s step-end infinite;
-      border-right: 2px solid #00ff00; /* The cursor */
+      transition: 0.2s;
     }
 
-    @keyframes typing {
-      from { width: 0; }
-      to   { width: 100%; }
-    }
-
-    @keyframes blink {
-      50% { border-color: transparent; }
-    }
-
-    /* Additional styling for the follow-up text */
-    .follow-up {
-      margin-top: 2rem;
-    }
-
-    .follow-up p {
-      opacity: 0;
-      animation: fadein 2s forwards;
-    }
-
-    .follow-up p:nth-child(1) {
-      animation-delay: 5s;
-    }
-
-    .follow-up p:nth-child(2) {
-      animation-delay: 8s;
-    }
-
-    .follow-up p:nth-child(3) {
-      animation-delay: 11s;
-    }
-
-    @keyframes fadein {
-      to { opacity: 1; }
-    }
-
-    /* Glitch animation */
-    .glitch {
-      animation: glitch 0.3s infinite;
-    }
-
-    @keyframes glitch {
-      0% { transform: translate(2px, 0) skewX(5deg); }
-      20% { transform: translate(-2px, 0) skewX(-5deg); }
-      40% { transform: translate(2px, 0) skewX(5deg); }
-      60% { transform: translate(-2px, 0) skewX(-5deg); }
-      80% { transform: translate(2px, 0) skewX(5deg); }
-      100% { transform: translate(0, 0); }
-    }
-
-    /* TV shutdown effect */
-    .tv-off {
-      animation: tvOff 1s forwards;
-    }
-
-    @keyframes tvOff {
-      0% { transform: scaleY(1); }
-      50% { transform: scaleY(0.1); }
-      100% { transform: scaleY(0); }
+    .tags a:hover {
+      color: #551A8B;
     }
   </style>
 </head>
-
 <body>
-  <div class="container" id="content">
-    <!-- The "typing" line -->
-    <h1 class="typewriter">Wake up Alfredo...</h1>
 
-    <!-- The follow-up text with staggered fade-ins -->
-    <div class="follow-up">
-      <p>I see that you're recording <strong>Red Web</strong>.</p>
-      <p>You think there's something mysterious about this website?</p>
-      <p>Or are <em>you</em> the mystery?</p>
-    </div>
+  <div class="content">
+    <h1>Here lies FaceFamous.org</h1>
+    <p>While the website is gone, this discussion stands as a record of an internet mystery that once existed.</p>
+
+    <!-- Embedded Spotify Podcast -->
+    <iframe class="spotify-embed"
+      src="https://open.spotify.com/embed/episode/6HRaiaj2af1U4SJAdycQ7F?utm_source=generator"
+      frameborder="0"
+      allowfullscreen
+      allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture">
+    </iframe>
+  </div>
+
+  <!-- Tag Container -->
+  <div class="tags-container">
+    <div class="tags" id="tags"></div>
   </div>
 
   <script>
-    const container = document.getElementById('content');
+    function getURLParam(name) {
+      const urlParams = new URLSearchParams(window.location.search);
+      return urlParams.get(name);
+    }
 
+    const baseTags = [...Array(26)].map((_, i) => String.fromCharCode(65 + i));
+    const allTags = baseTags.flatMap(a => baseTags.map(b => a + b));
 
-    // Apply TV shutdown effect at 16s
-    setTimeout(() => {
-      container.classList.remove('glitch');
-      container.classList.add('tv-off');
-    }, 16000);
+    let prefix = getURLParam('prefix') || '';
+    let postfix = getURLParam('postfix') || '';
+    let middle = getURLParam('middle') || '';
+    let finalChar = getURLParam('final') || '';
 
-    // Restart the entire sequence at 20s
-    setTimeout(() => {
-      container.classList.remove('tv-off');
-      container.innerHTML = `
-        <h1 class="typewriter">Wake up Alfredo...</h1>
-        <div class="follow-up">
-          <p>I see that you're recording <strong>Red Web</strong>.</p>
-          <p>You think there's something mysterious about this website?</p>
-          <p>Or are <em>you</em> the mystery?</p>
-        </div>
-      `;
-    }, 20000);
+    const tagContainer = document.getElementById('tags');
+
+    if (!prefix) {
+      // Step 1: Select Prefix (First Two Letters)
+      allTags.forEach(tag => {
+        const link = document.createElement('a');
+        link.href = `?prefix=${tag}`;
+        link.textContent = `${tag}*****`;
+        tagContainer.appendChild(link);
+      });
+    } else if (!postfix) {
+      // Step 2: Select Postfix (Last Two Letters)
+      allTags.forEach(tag => {
+        const link = document.createElement('a');
+        link.href = `?prefix=${prefix}&postfix=${tag}`;
+        link.textContent = `${prefix}***${tag}`;
+        tagContainer.appendChild(link);
+      });
+    } else if (!middle) {
+      // Step 3: Select Middle Character (Correctly Inserted Between Prefix and Postfix)
+      allTags.forEach(tag => {
+        const link = document.createElement('a');
+        link.href = `?prefix=${prefix}&postfix=${postfix}&middle=${tag}`;
+        link.textContent = `${prefix}${tag}*${postfix}`;
+        tagContainer.appendChild(link);
+      });
+    } else if (!finalChar) {
+      // Step 4: Select Final Character (Now the Last Step)
+      baseTags.forEach(tag => {
+        const link = document.createElement('a');
+        link.href = `?prefix=${prefix}&postfix=${postfix}&middle=${middle}&final=${tag}`;
+        link.textContent = `${prefix}${middle}${tag}${postfix}`;
+        tagContainer.appendChild(link);
+      });
+    } else {
+      // Final Step: Show the Completed Tag
+      const finalTag = `${prefix}${middle}${finalChar}${postfix}`;
+      const link = document.createElement('a');
+      link.href = `index.html`; // Reset back to original page
+      link.textContent = finalTag;
+      link.style.fontWeight = 'bold';
+      link.style.fontSize = '16px';
+      tagContainer.appendChild(link);
+    }
   </script>
+
 </body>
 </html>
