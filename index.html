@@ -140,6 +140,21 @@
         link.textContent = `${prefix}***${tag}`;
         tagContainer.appendChild(link);
       });
+      } else if (!middle) {
+    // Special Case: If the tag is "REDW*EB", redirect to redwebpod.com
+    if (prefix === "REDW" && postfix === "EB") {
+      window.location.href = "https://redwebpod.com";
+      return;
+    }
+
+    // Step 3: Select Middle Character (Correctly Inserted Between Prefix and Postfix)
+    allTags.forEach(tag => {
+      const link = document.createElement('a');
+      link.href = `?prefix=${prefix}&postfix=${postfix}&middle=${tag}`;
+      link.textContent = `${prefix}${tag}*${postfix}`;
+      tagContainer.appendChild(link);
+    });
+  }
     } else if (!middle) {
       // Step 3: Select Middle Character (Correctly Inserted Between Prefix and Postfix)
       allTags.forEach(tag => {
