@@ -141,15 +141,22 @@
         tagContainer.appendChild(link);
       });
     } else if (!middle) {
-      // Step 3: Select Middle Character (Correctly Inserted Between Prefix and Postfix)
       allTags.forEach(tag => {
+        const tagText = `${prefix}${tag}*${postfix}`;
+
+        // Special Case: Redirect "REDW*EB" to redwebpod.com
         const link = document.createElement('a');
-        link.href = `?prefix=${prefix}&postfix=${postfix}&middle=${tag}`;
-        link.textContent = `${prefix}${tag}*${postfix}`;
+        if (tagText === "REDW*EB") {
+          link.href = "https://redwebpod.com";
+          link.target = "_blank"; // Opens in a new tab
+        } else {
+          link.href = `?prefix=${prefix}&postfix=${postfix}&middle=${tag}`;
+        }
+        link.textContent = tagText;
         tagContainer.appendChild(link);
       });
     } else if (!finalChar) {
-      // Step 4: Select Final Character (Now the Last Step)
+      // Step 4: Select Final Character
       baseTags.forEach(tag => {
         const link = document.createElement('a');
         link.href = `?prefix=${prefix}&postfix=${postfix}&middle=${middle}&final=${tag}`;
